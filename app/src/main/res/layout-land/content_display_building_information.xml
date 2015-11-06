@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_alignParentTop="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:showIn="@layout/activity_display_building_information"
+    tools:context="cfreyvermont.acadia_mapping_v2.DisplayBuildingInformation"
+    android:orientation="vertical"
+    android:background="@android:color/holo_blue_light"
+    background="@android:color/holo_blue_light">
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/building_name"
+            android:id="@+id/building_name"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/building_code"
+            android:id="@+id/building_code"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/building_name"
+            android:layout_toEndOf="@+id/building_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hours">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/building_layout_hours"
+            android:id="@+id/building_layout_hours"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="10dp"
+            android:textAlignment="textEnd"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/building_hours"
+            android:id="@+id/building_hours"
+            android:layout_alignTop="@+id/building_layout_hours"
+            android:layout_toRightOf="@+id/building_layout_hours"
+            android:layout_toEndOf="@+id/building_layout_hours"
+            android:paddingLeft="10dp"
+            android:padding="10dp"
+            android:textAlignment="textStart"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/website">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/building_layout_website"
+            android:id="@+id/building_layout_website"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="10dp"
+            android:textAlignment="textEnd"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/building_website"
+            android:id="@+id/building_website"
+            android:layout_toRightOf="@+id/building_layout_website"
+            android:layout_toEndOf="@+id/building_layout_website"
+            android:paddingLeft="0dp"
+            android:padding="10dp"
+            android:autoLink="web"
+            android:textAlignment="textStart"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/building_layout_phone"
+            android:id="@+id/building_layout_phone"
+            android:padding="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="0dp"
+            android:textAlignment="textEnd"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/building_phone"
+            android:id="@+id/building_phone"
+            android:padding="10dp"
+            android:layout_alignTop="@+id/building_layout_phone"
+            android:layout_toRightOf="@+id/building_layout_phone"
+            android:layout_toEndOf="@+id/building_layout_phone"
+            android:autoLink="phone"
+            android:textAlignment="textStart"/>
+    </RelativeLayout>
+
+</LinearLayout>
