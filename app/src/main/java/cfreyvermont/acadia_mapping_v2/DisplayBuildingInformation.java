@@ -1,14 +1,15 @@
 package cfreyvermont.acadia_mapping_v2;
 
-import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -43,6 +44,13 @@ public class DisplayBuildingInformation extends AppCompatActivity {
             website.setText(data[2]);
             TextView phone = (TextView) findViewById(R.id.building_phone);
             phone.setText(data[3]);
+            if (data[4].length() >= 1) {
+                RelativeLayout relativeLayout = (RelativeLayout)
+                        findViewById(R.id.notes_placeholder);
+                View v = getLayoutInflater().inflate(R.layout.building_notes, relativeLayout);
+                TextView textView = (TextView) v.findViewById(R.id.building_notes);
+                textView.setText(data[4]);
+            }
         }
     }
 

@@ -36,9 +36,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         db = new BuildingInfoDB(getApplicationContext());
 
         /* Adding the information to the database building information */
-        if (!db.containsData()) {
-            addInfoToDatabase();
-        }
+        addInfoToDatabase();
 
         setContentView(R.layout.activity_google_maps);
 
@@ -64,10 +62,12 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 String[] tuple = TextUtils.split(line, ",");
                 long result = db.createRecord(tuple);
                 if (result == -1) {
-                    Log.e("Error:", "Insert not completed");
+                    Log.i("Error:", "Insert not completed");
                 }
             } catch (IOException e) {
                 Log.e("IOException:", e.getMessage());
+            } catch (Exception e) {
+                Log.i("Exception", e.getMessage());
             }
         }
     }

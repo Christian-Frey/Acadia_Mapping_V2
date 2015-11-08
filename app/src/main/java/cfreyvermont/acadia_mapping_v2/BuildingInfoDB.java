@@ -7,6 +7,8 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.SQLException;
+
 /**
  * Created by Christian on 11/3/2015. It will provide functions that
  * activities can use in order to access the database in a standardized manner.
@@ -25,7 +27,7 @@ public class BuildingInfoDB {
      * @param array the values to put into the DB
      * @return the result of the INSERT (-1 on error)
      */
-    public long createRecord(String[] array) {
+    public long createRecord(String[] array) throws Exception {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_ID, array[0]);
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_NAME, array[1]);
@@ -34,22 +36,23 @@ public class BuildingInfoDB {
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_PHONE, array[4]);
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_WEBSITE, array[5]);
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_NOTES, array[6]);
-        return db.insert(DatabaseHelper.TABLE_NAME, null, values);
+        return db.insertOrThrow(DatabaseHelper.TABLE_NAME, null, values);
     }
 
     /**
      * Checks to see if the table contains data, as we don't want to add it twice.
      *
-     * @return if the table has data in it.
+     * @return the # of tuples in the DB.
      */
-    public boolean containsData() {
-        /* Get Everything to see if there is any data */
-        Cursor dbCursor = db.query(DatabaseHelper.TABLE_NAME, null, null, null, null, null, null);
+    public int getSize() {
+        int size = 0;
+        /* Get everything to see to determine the # of tuples in the DB */
+        Cursor dbCursor = db.rawQuery("SELECT COUNT(*) FROM " + DatabaseHelper.TABLE_NAME, null);
         if ((dbCursor != null) && (dbCursor.moveToFirst())) {
-            dbCursor.close();
-            return true;
+            size = dbCursor.getInt(0);
         }
-        return false;
+        dbCursor.close();
+        return size;
     }
 
     /**

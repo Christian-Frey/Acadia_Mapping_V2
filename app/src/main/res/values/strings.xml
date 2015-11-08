@@ -3,8 +3,6 @@
     <string name="title_activity_google_maps">Map</string>
     <string name="title_activity_display_building_information">Information</string>
 
-
-
     <string name="building_name">No Building Found</string>
     <string name="building_code">NON</string>
     <string name="building_layout_hours">Hours:</string>

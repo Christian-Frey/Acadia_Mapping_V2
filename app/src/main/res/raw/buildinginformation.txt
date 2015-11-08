@@ -1,2 +1,3 @@
 0,Beveridge Arts Centre,BAC,8AM - 10PM,18024967894,virtualtour.acadiau.ca/beveridge-arts-centre.html,Cool building Bro
 1,Huggins Science Hall,HSH,8AM - 10PM,19026929161,virtualtour.acadiau.ca/huggins-science-hall.html,Home of Science
+2,University Hall,UNH,9AM - 4:30PM,9025852201,http://virtualtour.acadiau.ca/university-hall.html,
