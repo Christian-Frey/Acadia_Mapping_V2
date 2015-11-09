@@ -40,8 +40,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         setContentView(R.layout.activity_google_maps);
 
-
-
         /* Obtain the SupportMapFragment and get notified when the map is ready to be used. */
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -52,17 +50,46 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
      * creates a database containing the information on each of the buildings.
      */
     private void addInfoToDatabase() {
+        int size = db.getSize();
         final Resources resource = getResources();
         InputStream is = resource.openRawResource(R.raw.buildinginformation);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        while (true) {
+
+        /* Reading through the file to count the number of lines. */
+        int numLines = 0;
+        try {
+            /* Will keep the mark for 10MB of data read. */
+            reader.mark(10000000);
+            while (reader.readLine() != null) {
+                numLines++;
+            }
+        } catch (IOException e) {
+            Log.e("IOException:", e.getMessage());
+        }
+
+        if (size >= numLines) {
+            return;
+        }
+        /* There are new entries in the file that we can add. */
+        else {
             try {
-                String line = reader.readLine();
-                if (line == null) break;
-                String[] tuple = TextUtils.split(line, ",");
-                long result = db.createRecord(tuple);
-                if (result == -1) {
-                    Log.i("Error:", "Insert not completed");
+                //Going back to the beginning.
+                reader.reset();
+                /* consuming the lines that are already in the DB. */
+                for (int i = 0; i < (size); i++) {
+                    reader.readLine();
+                }
+
+                String line;
+                while ((line = reader.readLine()) != null){
+                    String[] tuple = TextUtils.split(line, ",");
+                    long result = db.createRecord(tuple);
+                    if (result == -1) {
+                        Log.i("Error:", "Insert not completed");
+                    }
+                    else {
+                        Log.i("Inserted:", tuple[1]);
+                    }
                 }
             } catch (IOException e) {
                 Log.e("IOException:", e.getMessage());
