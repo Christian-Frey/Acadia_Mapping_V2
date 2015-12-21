@@ -1,65 +1,59 @@
 package cfreyvermont.acadia_mapping_v2;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-public class DisplayBuildingInformation extends FragmentActivity {
+public class DisplayBuildingInformation extends Fragment {
     BuildingInfoDB db;
+    Bundle bundle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_display_building_information);
-        expand(findViewById(R.id.display_building_layout));
-        Intent intent = getIntent();
-        String building_code = intent.getStringExtra("buildingCode");
-
-        db = new BuildingInfoDB(getApplicationContext());
-        ContentValues cv = db.selectRecordByCode(building_code);
-        /* Overwriting the default values in the xml layout with actual values */
-        if (cv != null)  {
-            setBuildingInfo(cv);
-        }
-
+        bundle = getArguments();
     }
 
-    /**
-     * Replaces the placeholder values with values from the Database.
-     *
-     * @param cv the values returned from the database.
-     */
-    private void setBuildingInfo(ContentValues cv) {
-        RelativeLayout relativeLayout = (RelativeLayout)
-                findViewById(R.id.notes_placeholder);
-        String data[] = new String[cv.keySet().size()];
-        data[0] = cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_NAME) + ": " +
-                cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_CODE);
-        data[1] = cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_HOURS);
-        data[2] = cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_WEBSITE);
-        data[3] = cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_PHONE);
-        data[4] = cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_NOTES);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.display_building_information,
+                                container, false);
+    }
 
-        TextView name = (TextView) findViewById(R.id.building_name);
-        name.setText(data[0]);
-        TextView hours = (TextView) findViewById(R.id.building_hours);
-        hours.setText(data[1]);
-        TextView website = (TextView) findViewById(R.id.building_website);
-        website.setText(data[2]);
-        TextView phone = (TextView) findViewById(R.id.building_phone);
-        phone.setText(data[3]);
-        if (data[4].length() >= 1) {
-            View v = getLayoutInflater().inflate(R.layout.building_notes, relativeLayout);
-            TextView textView = (TextView) v.findViewById(R.id.building_notes);
-            textView.setText(data[4]);
+    @Override
+    public void onViewCreated(View v, Bundle savedInstanceState) {
+        String code = "";
+        if (bundle != null) {
+            code = bundle.getString("name");
+        }
+
+        db = new BuildingInfoDB(getContext());
+        ContentValues cv = db.selectRecordByCode(code);
+
+        if (cv != null) {
+            TextView name = (TextView) v.findViewById(R.id.building_name);
+            name.setText(cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_NAME));
+
+            TextView purpose = (TextView) v.findViewById(R.id.building_purpose);
+            purpose.setText(cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_PURPOSE));
+
+            TextView hours = (TextView) v.findViewById(R.id.building_hours);
+            hours.setText(cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_HOURS));
+
+            TextView website = (TextView) v.findViewById(R.id.building_website);
+            website.setText(cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_WEBSITE));
+
+            TextView description = (TextView) v.findViewById(R.id.building_description);
+            description.setText(cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_NOTES));
         }
     }
 

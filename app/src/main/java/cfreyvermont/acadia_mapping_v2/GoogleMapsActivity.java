@@ -1,9 +1,9 @@
 package cfreyvermont.acadia_mapping_v2;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,6 +29,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private GoogleMap map;
     BuildingInfoDB db;
     private Map<String, Polygon> polygonList = new ArrayMap<>();
+
+    /* Things to do
+     * Add walking directions based on current location
+     * Add support for local Wolfville businesses
+     * Allow for user-submitted details about buildings
+     * Add support for class schedules and optimal routes between classes
+     * Add information on room locations within buildings
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +66,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         /* Reading through the file to count the number of lines. */
         int numLines = 0;
         try {
-            /* Will keep the mark for 10MB of data read. */
+            /* Will keep the mark (beginning) for 10MB of data read. */
             reader.mark(10000000);
             while (reader.readLine() != null) {
                 numLines++;
@@ -67,11 +75,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             Log.e("IOException:", e.getMessage());
         }
 
-        if (size >= numLines) {
-            return;
-        }
+        if (size < numLines) {
         /* There are new entries in the file that we can add. */
-        else {
             try {
                 //Going back to the beginning.
                 reader.reset();
@@ -151,15 +156,27 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 openInformation(code.getKey());
             }
             else {
-                //TODO: Close the window if it is open.
+                closeInformation();
             }
         }
     }
 
     private void openInformation(String code) {
-        Intent intent = new Intent(this, DisplayBuildingInformation.class);
-        intent.putExtra("buildingCode", code);
-        startActivity(intent);
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
 
+        Bundle bundle = new Bundle();
+        bundle.putString("name", code);
+
+        DisplayBuildingInformation fragment = new DisplayBuildingInformation();
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.info_placeholder, fragment);
+        transaction.addToBackStack("info").commit();
+    }
+
+    private void closeInformation() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        }
     }
 }

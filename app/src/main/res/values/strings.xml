@@ -11,4 +11,9 @@
     <string name="building_website">No Website Found</string>
     <string name="building_layout_phone">Phone:</string>
     <string name="building_phone">No Phone Found</string>
+    <string name="hoursPlaceholder">Hours</string>
+    <string name="namePlaceholder">Name</string>
+    <string name="purpose_placeholder">Purpose</string>
+    <string name="description_string">Description</string>
+    <string name="website_string">Website</string>
 </resources>

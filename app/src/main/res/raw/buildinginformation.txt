@@ -1,4 +1,4 @@
-0,Beveridge Arts Centre,BAC,8AM - 10PM,18024967894,virtualtour.acadiau.ca/beveridge-arts-centre.html,Cool building Bro
-1,Huggins Science Hall,HSH,8AM - 10PM,19026929161,virtualtour.acadiau.ca/huggins-science-hall.html,Home of Science
-2,University Hall,UNH,9AM - 4:30PM,9025852201,http://virtualtour.acadiau.ca/university-hall.html,
-3,War Memorial House,WMH,Quiet Hours during Exams,18001234567,http://virtualtour.acadiau.ca/war-memorial-house-barrax.html,The best residence
+0,Beveridge Arts Centre,BAC,Arts Centre,8AM - 10PM,18024967894,http://virtualtour.acadiau.ca/beveridge-arts-centre.html,Cool building Bro
+1,Huggins Science Hall,HSH,Classrooms and Offices,8AM - 10PM,19026929161,http://virtualtour.acadiau.ca/huggins-science-hall.html,Home of Science
+2,University Hall,UNH,Auditorium and Registrar Office,9AM - 4:30PM,9025852201,http://virtualtour.acadiau.ca/university-hall.html,
+3,War Memorial House,WMH,Residence,Quiet Hours during Exams,18001234567,http://virtualtour.acadiau.ca/war-memorial-house-barrax.html,The best residence

@@ -18,12 +18,13 @@ public final class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME_BUILDING_ID = "building_id";
     public static final String COLUMN_NAME_BUILDING_NAME = "building_name";
     public static final String COLUMN_NAME_BUILDING_CODE = "building_code";
+    public static final String COLUMN_NAME_BUILDING_PURPOSE = "building_purpose";
     public static final String COLUMN_NAME_BUILDING_HOURS = "building_hours";
     public static final String COLUMN_NAME_BUILDING_PHONE = "building_phone";
     public static final String COLUMN_NAME_BUILDING_WEBSITE = "building_website";
     public static final String COLUMN_NAME_BUILDING_NOTES = "building_notes";
 
-    public static final String COMMA_SEP = ",";
+    public static final String COMMA_SEP = ", ";
     public static final String TEXT_TYPE = " TEXT";
     public static final String INT_TYPE = " INTEGER";
 
@@ -32,6 +33,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper{
             COLUMN_NAME_BUILDING_ID + INT_TYPE + " PRIMARY_KEY" + COMMA_SEP +
             COLUMN_NAME_BUILDING_NAME + TEXT_TYPE + COMMA_SEP +
             COLUMN_NAME_BUILDING_CODE + TEXT_TYPE + " UNIQUE" + COMMA_SEP +
+            COLUMN_NAME_BUILDING_PURPOSE + TEXT_TYPE + COMMA_SEP +
             COLUMN_NAME_BUILDING_HOURS + TEXT_TYPE + COMMA_SEP +
             COLUMN_NAME_BUILDING_PHONE + TEXT_TYPE + COMMA_SEP +
             COLUMN_NAME_BUILDING_WEBSITE + TEXT_TYPE + COMMA_SEP +
@@ -42,8 +44,8 @@ public final class DatabaseHelper extends SQLiteOpenHelper{
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
-    public static final int DB_VERSION = 1;
-    public static final String DB_NAME = "building_information.db";
+    public static final int DB_VERSION = 3;
+    public static final String DB_NAME = "building_information.sqlite";
 
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(SQL_CREATE_TABLE);

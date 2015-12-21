@@ -7,8 +7,6 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.sql.SQLException;
-
 /**
  * Created by Christian on 11/3/2015. It will provide functions that
  * activities can use in order to access the database in a standardized manner.
@@ -32,26 +30,27 @@ public class BuildingInfoDB {
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_ID, array[0]);
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_NAME, array[1]);
         values.put(DatabaseHelper.COLUMN_NAME_BUILDING_CODE, array[2]);
-        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_HOURS, array[3]);
-        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_PHONE, array[4]);
-        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_WEBSITE, array[5]);
-        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_NOTES, array[6]);
+        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_PURPOSE, array[3]);
+        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_HOURS, array[4]);
+        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_PHONE, array[5]);
+        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_WEBSITE, array[6]);
+        values.put(DatabaseHelper.COLUMN_NAME_BUILDING_NOTES, array[7]);
         return db.insertOrThrow(DatabaseHelper.TABLE_NAME, null, values);
     }
 
     /**
      * Checks to see if the table contains data, as we don't want to add it twice.
      *
-     * @return the # of tuples in the DB.
+     * @return the # of rows in the DB.
      */
     public int getSize() {
         int size = 0;
-        /* Get everything to see to determine the # of tuples in the DB */
+        /* Get everything to see to determine the # of rows in the DB */
         Cursor dbCursor = db.rawQuery("SELECT COUNT(*) FROM " + DatabaseHelper.TABLE_NAME, null);
         if ((dbCursor != null) && (dbCursor.moveToFirst())) {
             size = dbCursor.getInt(0);
+            dbCursor.close();
         }
-        dbCursor.close();
         return size;
     }
 
@@ -92,8 +91,6 @@ public class BuildingInfoDB {
      * @return the tuple that matches the given building code.
      */
     public ContentValues selectRecordByCode(String code) {
-
-        Log.v("code:", code);
         String whereClause = DatabaseHelper.COLUMN_NAME_BUILDING_CODE + " =?";
 
         /* See selectRecordById for more information */
@@ -103,9 +100,8 @@ public class BuildingInfoDB {
         if((dbCursor != null) && (dbCursor.moveToFirst())) {
                 ContentValues cv = new ContentValues();
                 DatabaseUtils.cursorRowToContentValues(dbCursor, cv);
-                dbCursor.close();
+            dbCursor.close();
                 return cv;
-                //Log.d("NAME:", building_name);
         }
         Log.i("Query Result:", "Empty Set");
         return null;
