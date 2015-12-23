@@ -56,7 +56,8 @@
         android:height="48dp"
         android:layout_below="@+id/building_hours"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:autoLink="web" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,8 +67,8 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textColor="#000000"
-        android:height="48dp"
-        android:textAlignment="center"
         android:layout_below="@+id/building_website"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
 </RelativeLayout>

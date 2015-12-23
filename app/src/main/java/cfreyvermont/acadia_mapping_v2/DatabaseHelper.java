@@ -44,7 +44,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper{
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
-    public static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 5;
     public static final String DB_NAME = "building_information.sqlite";
 
         public void onCreate(SQLiteDatabase db) {

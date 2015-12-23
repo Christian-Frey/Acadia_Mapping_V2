@@ -29,6 +29,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private GoogleMap map;
     BuildingInfoDB db;
     private Map<String, Polygon> polygonList = new ArrayMap<>();
+    boolean IS_WINDOW_OPEN = false;
 
     /* Things to do
      * Add walking directions based on current location
@@ -87,7 +88,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
                 String line;
                 while ((line = reader.readLine()) != null){
-                    String[] tuple = TextUtils.split(line, ",");
+                    String[] tuple = TextUtils.split(line, "\\|");
                     long result = db.createRecord(tuple);
                     if (result == -1) {
                         Log.i("Error:", "Insert not completed");
@@ -155,28 +156,35 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 Log.d("Opening Building:", code.getKey());
                 openInformation(code.getKey());
             }
-            else {
+            else { // They did not.
                 closeInformation();
             }
         }
     }
 
     private void openInformation(String code) {
+        // Creating a new fragment transaction to add it to the activity.
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
+        // Passing the building name to the fragment
         Bundle bundle = new Bundle();
         bundle.putString("name", code);
 
+        // Creating the fragment, adding the information, and adding it to the stack.
         DisplayBuildingInformation fragment = new DisplayBuildingInformation();
         fragment.setArguments(bundle);
         transaction.replace(R.id.info_placeholder, fragment);
         transaction.addToBackStack("info").commit();
+
+        IS_WINDOW_OPEN = true;
     }
 
     private void closeInformation() {
+        // If there is an information window open, close it.
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         }
+        IS_WINDOW_OPEN = false;
     }
 }

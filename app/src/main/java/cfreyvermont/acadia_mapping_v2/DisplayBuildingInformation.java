@@ -31,6 +31,8 @@ public class DisplayBuildingInformation extends Fragment {
 
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
+        // Applies the animation transition to the fragment.
+        expand(v);
         String code = "";
         if (bundle != null) {
             code = bundle.getString("name");
