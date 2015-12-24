@@ -16,4 +16,65 @@
     <string name="purpose_placeholder">Purpose</string>
     <string name="description_string">Description</string>
     <string name="website_string">Website</string>
+    <string name="search_text">Building Search</string>
+
+    <string-array name="building_names">
+        <item>Arena &amp; Gymnasium: AAC </item>
+        <!--<item>Alumni Hall: ALH </item>-->
+        <item>Beveridge Arts Centre: BAC </item>
+        <item>Bancroft House: BAN </item>
+        <item>Biology Building: BIO </item>
+        <item>Carnegie Hall: CAR </item>
+        <item>Chase Court: CHA </item>
+        <item>Chipman House: CHI </item>
+        <!--<item>Central Heating Plant: CHP </item>-->
+        <item>Clark Commons: CLC </item>
+        <item>Christofor Hall: CRF </item>
+        <item>Crowell Tower: CRO </item>
+        <item>Cutten House: CUT </item>
+        <item>Dennis House: DEN </item>
+        <item>Divinity College: DIV </item>
+        <item>Eaton House: EAT </item>
+        <item>Elliott Hall: ELL </item>
+        <item>Emmerson Hall: EMM </item>
+        <item>Fountain Commons: FOU </item>
+        <item>Festival Theatre Building: FTB </item>
+        <item>Godfrey House: GOD </item>
+        <item>COR&amp;D: H24 </item>
+        <!--<item>Rec Management Storage: H48 </item>-->
+        <item>Hayward House: HAY </item>
+        <item>Harvey Denton Hall: HDH </item>
+        <item>Horton Hall: HOR </item>
+        <item>Huggins Science Hall: HSH </item>
+        <item>K. C. Irving Environmental Science Centre: KCI </item>
+        <item>Manning Memorial Chapel: MMC </item>
+        <!--<item>Morton Propert: MOR </item>-->
+        <item>Patterson Hall: PAT </item>
+        <item>Raymond House: RAY </item>
+        <item>Rhodes Hall: RHO </item>
+        <item>Roy Jodrey Hall: RJH </item>
+        <!--<item>Services Building Garage: RRG </item>-->
+        <item>Seminary House: SEM </item>
+        <!--<item>Robie Roscoe Services Building: SER </item>-->
+        <item>Students\' Union Building: SUB </item>
+        <!--<item>Trans. Site Electrical Dist.: TSE </item>-->
+        <!--<item>DeWolfe House: U52 </item>-->
+        <!--<item>56 University Avenue: U56 </item>-->
+        <!--<item>58 University Avenue: U58 </item>-->
+        <item>University Hall: UNH </item>
+        <item>Vaughan Memorial Library: VML </item>
+        <!--<item>11 Westwood Avenue: W11 </item>-->
+        <item>University Club: W17 </item>
+        <!--<item>39 Westwood Avenue: W39 </item>-->
+        <!--<item>41 Westwood Avenue: W41 </item>-->
+        <!--<item>45 Westwood Avenue: W45 </item>-->
+        <item>Wheelock Dining Hall: WHE </item>
+        <item>Whitman House: WHI </item>
+        <item>Wong International Centre: WIC </item>
+        <item>Willett House: WIL </item>
+        <!--<item>War Memorial Gym: WMG </item>-->
+        <item>War Memorial House: WMH </item>
+        <!--<item>Wu Welcome Centre: WWC </item>-->
+        <!-- ... -->
+    </string-array>
 </resources>

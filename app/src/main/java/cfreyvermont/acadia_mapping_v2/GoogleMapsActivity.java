@@ -1,5 +1,6 @@
 package cfreyvermont.acadia_mapping_v2;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -7,6 +8,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +35,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private GoogleMap map;
     BuildingInfoDB db;
     private Map<String, Polygon> polygonList = new ArrayMap<>();
+    Map <String, PolygonOptions> polygonOptionsMap;
     boolean IS_WINDOW_OPEN = false;
 
     /* Things to do
@@ -53,6 +60,44 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    /**
+     * Setting the search listener that will handle the search bar functionality.
+     */
+    private void setSearchListener() {
+    /* Adding the search bar functionality. */
+        final String[] buildings = getResources().getStringArray(R.array.building_names);
+        AutoCompleteTextView search = (AutoCompleteTextView) findViewById(R.id.building_search);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, buildings);
+
+        search.setAdapter(adapter);
+        /* Adding the listener to the search bar to determine what item was clicked on. */
+        search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String buildingWanted = adapter.getItem(position);
+                String buildingCode = buildingWanted.substring(buildingWanted.length() - 3);
+
+                PolygonOptions bldOption = polygonOptionsMap.get(buildingCode);
+                if (bldOption == null) { /* No building found. */
+                    return;
+                }
+
+                /* Moving to the building that was searched for */
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(bldOption.getPoints().get(0))
+                        .zoom(map.getCameraPosition().zoom)
+                        .bearing(map.getCameraPosition().bearing)
+                        .build();
+                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
     }
 
     /**
@@ -111,7 +156,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private void drawPolygons() {
         LatLngReader reader = new LatLngReader(getResources().openRawResource(
                 R.raw.buildingpoints));
-        Map <String, PolygonOptions> polygonOptionsMap = reader.getBuildings();
+
+        polygonOptionsMap = reader.getBuildings();
 
         for (Map.Entry<String, PolygonOptions> entry : polygonOptionsMap.entrySet()) {
             entry.getValue().strokeWidth(3);
@@ -130,6 +176,11 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        /* Adding the listener to the search bar once we know the map has been
+         * created successfully
+         */
+        setSearchListener();
+
         LatLng target = new LatLng(45.088845, -64.366850);
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(target)
@@ -162,6 +213,11 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
+    /**
+     *  This code opens a new fragment containing the building information.
+     *
+     * @param code The building to open, given by its building code.
+     */
     private void openInformation(String code) {
         // Creating a new fragment transaction to add it to the activity.
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
@@ -180,6 +236,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         IS_WINDOW_OPEN = true;
     }
 
+    /**
+     * Here we close to building information window, if one is open.
+     */
     private void closeInformation() {
         // If there is an information window open, close it.
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
