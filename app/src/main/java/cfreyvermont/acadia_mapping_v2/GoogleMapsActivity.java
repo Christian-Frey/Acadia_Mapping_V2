@@ -133,6 +133,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
                 String line;
                 while ((line = reader.readLine()) != null){
+                    /* Split the line based on the | character */
                     String[] tuple = TextUtils.split(line, "\\|");
                     long result = db.createRecord(tuple);
                     if (result == -1) {
