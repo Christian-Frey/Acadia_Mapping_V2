@@ -1,6 +1,7 @@
 package cfreyvermont.acadia_mapping_v2;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class DisplayBuildingInformation extends Fragment {
     BuildingInfoDB db;
     Bundle bundle;
+    public final static String STRING_EXTRA_MESSAGE = "cfreyvermont.BuildingCode";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,9 +36,11 @@ public class DisplayBuildingInformation extends Fragment {
     public void onViewCreated(View v, Bundle savedInstanceState) {
         // Applies the animation transition to the fragment.
         expand(v);
-        String code = "";
+        final String code;
         if (bundle != null) {
             code = bundle.getString("name");
+        } else {
+            code = "";
         }
 
         db = new BuildingInfoDB(getContext());
@@ -57,6 +62,17 @@ public class DisplayBuildingInformation extends Fragment {
             TextView description = (TextView) v.findViewById(R.id.building_description);
             description.setText(cv.getAsString(DatabaseHelper.COLUMN_NAME_BUILDING_NOTES));
         }
+
+        /* The user wants to provide feedback on a building */
+        ImageButton feedback = (ImageButton) v.findViewById(R.id.feedback_button);
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserFeedback.class);
+                intent.putExtra(STRING_EXTRA_MESSAGE, code);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

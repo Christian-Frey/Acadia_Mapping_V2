@@ -93,6 +93,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                         .build();
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+                /* Hiding the keyboard once they clicked on an item */
                 InputMethodManager imm = (InputMethodManager) getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
@@ -182,7 +183,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
          */
         setSearchListener();
 
-        LatLng target = new LatLng(45.088845, -64.366850);
+        LatLng target = new LatLng(45.088845, -64.366850); // University Hall
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(target)
                 .bearing(165)

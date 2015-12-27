@@ -2,30 +2,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#eeeeee">
+    android:background="#eee">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:text="@string/namePlaceholder"
         android:id="@+id/building_name"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:height="48dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textColor="#000000"
         android:textAlignment="center"
         />
 
-    <TextView
-        android:layout_width="match_parent"
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:background="#eee"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_start_conversation"
+        android:id="@+id/feedback_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/feedback_icon_accessibility" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:text="@string/purpose_placeholder"
         android:id="@+id/building_purpose"
         android:layout_below="@+id/building_name"
         android:layout_centerHorizontal="true"
-        android:height="48dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textColor="#000000"
@@ -34,26 +43,25 @@
         android:textAlignment="center"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:text="@string/hoursPlaceholder"
         android:id="@+id/building_hours"
-        android:height="48dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textColor="#000000"
         android:textAlignment="center"
-        android:layout_below="@+id/building_purpose" />
+        android:layout_below="@+id/building_purpose"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
         android:text="@string/website_string"
         android:id="@+id/building_website"
         android:textColor="#000"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:height="48dp"
         android:layout_below="@+id/building_hours"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"

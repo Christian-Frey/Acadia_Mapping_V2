@@ -17,6 +17,7 @@
     <string name="description_string">Description</string>
     <string name="website_string">Website</string>
     <string name="search_text">Building Search</string>
+    <string name="feedback_icon_accessibility">Feedback</string>
 
     <string-array name="building_names">
         <item>Arena &amp; Gymnasium: AAC </item>
@@ -77,4 +78,18 @@
         <!--<item>Wu Welcome Centre: WWC </item>-->
         <!-- ... -->
     </string-array>
+
+    <string-array name="info_content">
+        <item>Name</item>
+        <item>Purpose</item>
+        <item>Hours</item>
+        <item>Website</item>
+        <item>Description</item>
+    </string-array>
+
+    <string name="title_activity_user_feedback">UserFeedback</string>
+    <string name="feedback_building_name">No Building Found</string>
+    <string name="feature_selection_hint">Which field is incorrect?</string>
+    <string name="user_entry_hint">What is incorrect?</string>
+    <string name="submit_feedback_button">Submit Feedback</string>
 </resources>

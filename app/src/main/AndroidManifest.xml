@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cfreyvermont.acadia_mapping_v2" >
+<manifest package="cfreyvermont.acadia_mapping_v2"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality. 
     -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -26,15 +26,15 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key"/>
 
         <activity
             android:name=".GoogleMapsActivity"
-            android:label="@string/title_activity_google_maps" >
+            android:label="@string/title_activity_google_maps">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -44,7 +44,16 @@
             android:theme="@style/Theme.AppCompat.Translucent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="cfreyvermont.acadia_mapping_v2.GoogleMapsActivity" />
+                android:value="cfreyvermont.acadia_mapping_v2.GoogleMapsActivity"/>
+        </activity>
+        <activity
+            android:name=".UserFeedback"
+            android:label="@string/title_activity_user_feedback"
+            android:parentActivityName=".GoogleMapsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cfreyvermont.acadia_mapping_v2.GoogleMapsActivity"/>
         </activity>
     </application>
 
