@@ -111,16 +111,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
         /* Reading through the file to count the number of lines. */
-        int numLines = 0;
-        try {
-            /* Will keep the mark (beginning) for 10MB of data read. */
-            reader.mark(10000000);
-            while (reader.readLine() != null) {
-                numLines++;
-            }
-        } catch (IOException e) {
-            Log.e("IOException:", e.getMessage());
-        }
+        int numLines = getNumLines(reader);
 
         if (size < numLines) {
         /* There are new entries in the file that we can add. */
@@ -150,6 +141,26 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 Log.i("Exception", e.getMessage());
             }
         }
+    }
+
+    /**
+     * Counts the number of lines within a given file.
+     * @param reader the file reader of the file we want to count.
+     *
+     * @return the number of lines within a file.
+     */
+    private int getNumLines(BufferedReader reader) {
+        int numLines = 0;
+        try {
+            /* Will keep the mark (beginning) for 10MB of data read. */
+            reader.mark(10000000);
+            while (reader.readLine() != null) {
+                numLines++;
+            }
+        } catch (IOException e) {
+            Log.e("IOException:", e.getMessage());
+        }
+        return numLines;
     }
 
     /**
