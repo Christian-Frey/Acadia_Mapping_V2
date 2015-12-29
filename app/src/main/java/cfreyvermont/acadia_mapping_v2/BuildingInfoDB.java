@@ -11,8 +11,8 @@ import android.util.Log;
  * Created by Christian on 11/3/2015. It will provide functions that
  * activities can use in order to access the database in a standardized manner.
  */
-public class BuildingInfoDB {
-    private SQLiteDatabase db;
+class BuildingInfoDB {
+    private final SQLiteDatabase db;
 
     public BuildingInfoDB(Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);

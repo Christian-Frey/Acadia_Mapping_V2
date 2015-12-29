@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by Christian on 11/3/2015. This is a helper for the database that stores
  * the building information so it is easier to retrieve information on the fly.
  */
-public final class DatabaseHelper extends SQLiteOpenHelper{
+final class DatabaseHelper extends SQLiteOpenHelper{
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -24,11 +24,11 @@ public final class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NAME_BUILDING_WEBSITE = "building_website";
     public static final String COLUMN_NAME_BUILDING_NOTES = "building_notes";
 
-    public static final String COMMA_SEP = ", ";
-    public static final String TEXT_TYPE = " TEXT";
-    public static final String INT_TYPE = " INTEGER";
+    private static final String COMMA_SEP = ", ";
+    private static final String TEXT_TYPE = " TEXT";
+    private static final String INT_TYPE = " INTEGER";
 
-    public static final String SQL_CREATE_TABLE =
+    private static final String SQL_CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
             COLUMN_NAME_BUILDING_ID + INT_TYPE + " PRIMARY_KEY" + COMMA_SEP +
             COLUMN_NAME_BUILDING_NAME + TEXT_TYPE + COMMA_SEP +
@@ -40,12 +40,12 @@ public final class DatabaseHelper extends SQLiteOpenHelper{
             COLUMN_NAME_BUILDING_NOTES + TEXT_TYPE +
             ");";
 
-    public static final String SQL_DROP_TABLE =
+    private static final String SQL_DROP_TABLE =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
-    public static final int DB_VERSION = 5;
-    public static final String DB_NAME = "building_information.sqlite";
+    private static final int DB_VERSION = 5;
+    private static final String DB_NAME = "building_information.sqlite";
 
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(SQL_CREATE_TABLE);

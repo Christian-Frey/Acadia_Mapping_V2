@@ -11,6 +11,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -36,15 +37,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".DisplayBuildingInformation"
-            android:label="@string/title_activity_display_building_information"
-            android:parentActivityName=".GoogleMapsActivity"
-            android:theme="@style/Theme.AppCompat.Translucent">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="cfreyvermont.acadia_mapping_v2.GoogleMapsActivity"/>
         </activity>
         <activity
             android:name=".UserFeedback"

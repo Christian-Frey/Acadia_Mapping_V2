@@ -24,13 +24,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class UserFeedback extends FragmentActivity {
-    BuildingInfoDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_feedback);
-        db = new BuildingInfoDB(getApplicationContext());
+        BuildingInfoDB db = new BuildingInfoDB(getApplicationContext());
 
         Intent intent = getIntent();
         final String code = intent.getStringExtra(

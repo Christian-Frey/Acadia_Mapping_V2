@@ -15,8 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class DisplayBuildingInformation extends Fragment {
-    BuildingInfoDB db;
-    Bundle bundle;
+    private Bundle bundle;
     public final static String STRING_EXTRA_MESSAGE = "cfreyvermont.BuildingCode";
 
     @Override
@@ -43,7 +42,7 @@ public class DisplayBuildingInformation extends Fragment {
             code = "";
         }
 
-        db = new BuildingInfoDB(getContext());
+        BuildingInfoDB db = new BuildingInfoDB(getContext());
         ContentValues cv = db.selectRecordByCode(code);
 
         if (cv != null) {
@@ -81,7 +80,7 @@ public class DisplayBuildingInformation extends Fragment {
      *
      * @param v the view to animate.
      */
-    public static void expand (final View v) {
+    private static void expand(final View v) {
         v.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
 

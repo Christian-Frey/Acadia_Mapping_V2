@@ -33,10 +33,10 @@ import java.util.Map;
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap map;
-    BuildingInfoDB db;
-    private Map<String, Polygon> polygonList = new ArrayMap<>();
-    Map <String, PolygonOptions> polygonOptionsMap;
-    boolean IS_WINDOW_OPEN = false;
+    private BuildingInfoDB db;
+    private final Map<String, Polygon> polygonList = new ArrayMap<>();
+    private Map <String, PolygonOptions> polygonOptionsMap;
+    private boolean IS_WINDOW_OPEN = false;
 
     /* Things to do
      * Add walking directions based on current location

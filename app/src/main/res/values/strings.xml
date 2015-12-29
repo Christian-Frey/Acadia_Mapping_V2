@@ -1,16 +1,7 @@
 <resources>
     <string name="app_name">Mapping</string>
     <string name="title_activity_google_maps">Map</string>
-    <string name="title_activity_display_building_information">Information</string>
 
-    <string name="building_name">No Building Found</string>
-    <string name="building_code">NON</string>
-    <string name="building_layout_hours">Hours:</string>
-    <string name="building_hours">No Hours Found</string>
-    <string name="building_layout_website">Website:</string>
-    <string name="building_website">No Website Found</string>
-    <string name="building_layout_phone">Phone:</string>
-    <string name="building_phone">No Phone Found</string>
     <string name="hoursPlaceholder">Hours</string>
     <string name="namePlaceholder">Name</string>
     <string name="purpose_placeholder">Purpose</string>

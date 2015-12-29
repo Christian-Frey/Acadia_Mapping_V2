@@ -24,8 +24,8 @@ import java.util.Map;
  *
  * We use JSON to structure the data.
  */
-public class LatLngReader {
-    JSONObject jso;
+class LatLngReader {
+    private JSONObject jso;
     public LatLngReader(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();

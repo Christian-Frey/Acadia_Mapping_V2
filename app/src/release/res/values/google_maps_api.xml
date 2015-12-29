@@ -4,7 +4,7 @@
 
     To get one, follow this link, follow the directions and press "Create" at the end:
 
-    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=20:AE:83:5B:18:95:BB:82:58:6F:68:08:26:2F:E9:60:AA:98:B9:2D%3Bcfreyvermont.acadia_mapping_v2
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=20:AE:83:5B:18:95:BB:82:58:6F:68:08:26:2F:E9:60:AA:98:B9:2D%3freyvermont.acadia_mapping_v2
 
     You can also add your credentials to an existing key, using this line:
     20:AE:83:5B:18:95:BB:82:58:6F:68:08:26:2F:E9:60:AA:98:B9:2D;cfreyvermont.acadia_mapping_v2
