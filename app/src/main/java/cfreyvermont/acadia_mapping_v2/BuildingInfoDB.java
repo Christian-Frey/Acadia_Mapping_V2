@@ -15,7 +15,7 @@ class BuildingInfoDB {
     private final SQLiteDatabase db;
 
     public BuildingInfoDB(Context context) {
-        DatabaseHelper dbHelper = new DatabaseHelper(context);
+        DatabaseHelper dbHelper = DatabaseHelper.getInstance(context);
         db = dbHelper.getWritableDatabase();
     }
 

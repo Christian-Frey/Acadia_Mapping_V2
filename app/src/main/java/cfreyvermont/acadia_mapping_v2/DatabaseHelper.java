@@ -10,10 +10,11 @@ import android.util.Log;
  * the building information so it is easier to retrieve information on the fly.
  */
 final class DatabaseHelper extends SQLiteOpenHelper{
-    public DatabaseHelper(Context context) {
+
+    private DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
-
+    public static DatabaseHelper mInstance = null;
     public static final String TABLE_NAME = "building_information";
     public static final String COLUMN_NAME_BUILDING_ID = "building_id";
     public static final String COLUMN_NAME_BUILDING_NAME = "building_name";
@@ -47,10 +48,25 @@ final class DatabaseHelper extends SQLiteOpenHelper{
     private static final int DB_VERSION = 5;
     private static final String DB_NAME = "building_information.sqlite";
 
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(SQL_CREATE_TABLE);
-            Log.i(DatabaseHelper.class.getName(), "Database Created using:\n" + SQL_CREATE_TABLE);
+    /**
+     * This solves the issue of leaking DB Objects by making sure there
+     * is only 1 instance of the DB. Thanks to
+     * http://stackoverflow.com/a/18148718 for the code.
+     *
+     * @param context The application context
+     * @return The database that we desire.
+     */
+    public static DatabaseHelper getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance  = new DatabaseHelper(context.getApplicationContext());
         }
+        return mInstance;
+    }
+
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_TABLE);
+        Log.i(DatabaseHelper.class.getName(), "Database Created using:\n" + SQL_CREATE_TABLE);
+    }
 
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(DatabaseHelper.class.getName(), "Upgrading from V" +
