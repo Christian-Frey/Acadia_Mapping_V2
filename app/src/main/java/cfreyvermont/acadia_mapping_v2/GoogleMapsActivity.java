@@ -46,6 +46,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
      * Add information on room locations within buildings
      */
 
+    /* TODO: fix issue where a SQLITE DB object is being leaked */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
