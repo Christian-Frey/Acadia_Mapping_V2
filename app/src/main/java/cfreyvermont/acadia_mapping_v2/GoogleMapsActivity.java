@@ -22,13 +22,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
+
+import org.jgrapht.graph.DefaultWeightedEdge;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.Set;
 
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -36,6 +41,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private BuildingInfoDB db;
     private final Map<String, Polygon> polygonList = new ArrayMap<>();
     private Map <String, PolygonOptions> polygonOptionsMap;
+    private DirectionsGraph g;
     private boolean IS_WINDOW_OPEN = false;
 
     /* Things to do
@@ -53,6 +59,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         /* Adding the information to the database building information */
         addInfoToDatabase();
+
+        /* Adding the graph which represents directions. */
+        g = new DirectionsGraph();
+        InputStream isVertex = getResources().openRawResource(R.raw.vertex);
+        InputStream isEdge = getResources().openRawResource(R.raw.edge);
+
+        g.addVerticesFromFile(isVertex);
+        g.addEdgeFromFile(isEdge);
 
         setContentView(R.layout.activity_google_maps);
 
@@ -211,8 +225,31 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 mapClicked(latLng);
             }
         });
+
+        //For Debugging only.
+        drawWalkingRoutes();
     }
 
+    /**
+     * Drawing all possible routes the user could take when asking for
+     * directions. For debugging use only.
+     */
+    private void drawWalkingRoutes() {
+        Set<DefaultWeightedEdge> set = g.graph.edgeSet();
+        for (DefaultWeightedEdge edge : set) {
+            LatLngNode source = g.graph.getEdgeSource(edge);
+            LatLngNode end = g.graph.getEdgeTarget(edge);
+            map.addPolyline(new PolylineOptions()
+                    .add(source.latLng)
+                    .add(end.latLng));
+        }
+    }
+
+
+    /**
+     * Determining if a user clicked within a building.
+     * @param point The point where the user clicked.
+     */
     private void mapClicked(LatLng point) {
         for (Map.Entry<String, Polygon> code : polygonList.entrySet()) {
             /* Did they click on a building? */
