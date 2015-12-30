@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
  * building it is.
  */
 public class LatLngNode {
+    public final int vertexNumber; // A unique identifier for the vertex
     public LatLng latLng;
     public final boolean isEndNode;
     public final String buildingCode;
@@ -18,8 +19,8 @@ public class LatLngNode {
      * Creates a vertex where the point is not a building node.
      * @param latLng the position of the vertex
      */
-    public LatLngNode(LatLng latLng) {
-        this(latLng, false, "");
+    public LatLngNode(int vertexNumber, LatLng latLng) {
+        this(vertexNumber, latLng, false, "");
     }
 
     /**
@@ -28,7 +29,9 @@ public class LatLngNode {
      * @param isEndNode If the vertex is a building
      * @param code the building code. null if vertex is not a building.
      */
-    public LatLngNode(LatLng latLng, boolean isEndNode, String code) {
+    public LatLngNode(int vertexNumber, LatLng latLng, boolean isEndNode,
+                      String code) {
+        this.vertexNumber = vertexNumber;
         this.latLng = latLng;
         this.isEndNode = isEndNode;
         if (isEndNode) {
@@ -40,7 +43,8 @@ public class LatLngNode {
 
     /**
      * Checks if two vertexes are equal. Uses the .equals function from the
-     * LatLng library.
+     * LatLng library. We can ignore the vertex number, as we want to see if
+     * the vertex features are identical.
      * @param node the node you want to compare.
      * @return true if the nodes are equal, false if not.
      */
@@ -68,7 +72,7 @@ public class LatLngNode {
             return sb.toString();
         }
         sb.append(", isEndNode: ").append(this.isEndNode);
-        sb.append(", BuildingCode:").append(this.buildingCode);
+        sb.append(", BuildingCode: ").append(this.buildingCode);
         return sb.toString();
     }
 }

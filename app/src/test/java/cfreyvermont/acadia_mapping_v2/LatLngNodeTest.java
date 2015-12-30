@@ -10,10 +10,10 @@ import junit.framework.TestCase;
  * Tests the LatLngNode class and methods.
  */
 public class LatLngNodeTest extends TestCase {
-    private LatLngNode n1 = new LatLngNode(new LatLng(45, 45));
-    private LatLngNode n2 = new LatLngNode(new LatLng(45, 45), true, "CIO");
-    private LatLngNode n3 = new LatLngNode(new LatLng(55, 55), true, "CIO");
-    private LatLngNode n4 = new LatLngNode(new LatLng(55, 55), true, "CIO");
+    private LatLngNode n1 = new LatLngNode(1,new LatLng(45, 45));
+    private LatLngNode n2 = new LatLngNode(2,new LatLng(45, 45), true, "CIO");
+    private LatLngNode n3 = new LatLngNode(3,new LatLng(55, 55), true, "CIO");
+    private LatLngNode n4 = new LatLngNode(4,new LatLng(55, 55), true, "CIO");
 
     public void setUp() throws Exception {
         super.setUp();
