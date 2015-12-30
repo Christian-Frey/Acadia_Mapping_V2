@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenCentral()
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -28,8 +32,8 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.google.maps.android:android-maps-utils:0.4'
     compile 'com.android.support:design:23.1.1'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.google.android.gms:play-services-identity:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    compile 'org.javabits.jgrapht:jgrapht-core:0.9.3'
 
 }

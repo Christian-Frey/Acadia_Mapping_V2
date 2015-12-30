@@ -170,7 +170,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         LatLngReader reader = new LatLngReader(getResources().openRawResource(
                 R.raw.buildingpoints));
 
-        polygonOptionsMap = reader.getBuildings();
+        polygonOptionsMap = reader.getAllBuildings();
 
         for (Map.Entry<String, PolygonOptions> entry : polygonOptionsMap.entrySet()) {
             entry.getValue().strokeWidth(3);
