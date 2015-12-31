@@ -1,7 +1,9 @@
 package cfreyvermont.acadia_mapping_v2;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
@@ -9,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -158,5 +162,104 @@ public class DirectionsGraph {
             }
         }
         return null;
+    }
+
+    /**
+     * Creates a route between two points, given by LatLng points.
+     *
+     * @param begin The starting coordinates
+     * @param end The ending building code
+     * @return A polyline with the shortest route between the two points.
+     */
+    /* TODO: allow for more flexible starting and ending points */
+    public PolylineOptions findRoute(LatLng begin, String end) {
+        PolylineOptions route = new PolylineOptions();
+
+        LatLngNode startNode = findNodeByLatLng(begin);
+        LatLngNode endNode = findNodeByCode(end);
+
+        DijkstraShortestPath<LatLngNode, DefaultWeightedEdge> dsp =
+                new DijkstraShortestPath<>(graph, startNode, endNode);
+
+        /*
+         * Rather interestingly, the pathEdgeList does not include the
+         * starting node. So it needs to be added manually to the PolyLine.
+         */
+        route.add(startNode.latLng);
+
+        List<DefaultWeightedEdge> pathEdgeList = dsp.getPathEdgeList();
+
+        for (DefaultWeightedEdge aPathEdgeList : pathEdgeList) {
+            route.add(graph.getEdgeSource(aPathEdgeList).latLng);
+        }
+
+        /* Now we need to add the end of the route to the list. */
+        route.add(endNode.latLng);
+
+        return route;
+        /* TODO: Find way to include expected walking time. */
+    }
+
+    /**
+     * Finds the closest node to a given LatLng point.
+     * @param point The given point
+     * @return The node closest to the given point.
+     */
+    public LatLngNode findNodeByLatLng(LatLng point) {
+        Set<LatLngNode> set = graph.vertexSet();
+        LatLngNode closestNode = null;
+        double closestDistance = Double.MAX_VALUE;
+
+        for (LatLngNode node : set) {
+            double currentDistance = distanceBetween(point, node.latLng);
+            if (currentDistance <= closestDistance) {
+                closestNode = node;
+                closestDistance = currentDistance;
+            }
+        }
+        return closestNode;
+    }
+
+    /**
+     * Finds a node based on the building code.
+     * @param code The building code to search for
+     * @return The node if found, null if no node is found.
+     */
+    public LatLngNode findNodeByCode(String code) {
+        Set<LatLngNode> set = graph.vertexSet();
+        for (LatLngNode node : set) {
+            if (node.buildingCode.equals(code)) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Calculates the distance between two given LatLng points.
+     * Due to the extremely small distance between the two points in this
+     * application, the values will be represented as BigDecimals to prevent
+     * a loss of precision
+     * @param p1 The first point
+     * @param p2 The second point
+     * @return The distance between the two.
+     */
+    private double distanceBetween(LatLng p1, LatLng p2) {
+        BigDecimal p1LatDecimal, p1LngDecimal, p2LatDecimal, p2LngDecimal;
+        p1LatDecimal = new BigDecimal(p1.latitude);
+        p1LngDecimal = new BigDecimal(p1.longitude);
+        p2LatDecimal = new BigDecimal(p2.latitude);
+        p2LngDecimal = new BigDecimal(p2.longitude);
+
+        BigDecimal p1Dist = p1LatDecimal.subtract(p2LatDecimal);
+        BigDecimal p2Dist = p1LngDecimal.subtract(p2LngDecimal);
+
+        p1Dist = p1Dist.pow(2);
+        p1Dist = p1Dist.pow(2);
+
+        BigDecimal sum = p1Dist.add(p2Dist);
+        double result = sum.doubleValue();
+
+        return Math.sqrt(result);
     }
 }

@@ -1,13 +1,13 @@
 package cfreyvermont.acadia_mapping_v2;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import junit.framework.TestCase;
 
 import org.jgrapht.graph.DefaultWeightedEdge;
 
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -48,14 +48,12 @@ public class DirectionsGraphTest extends TestCase {
     }
 
     public void testAddEdgeFromFile() throws Exception {
-        System.out.println("testAddEdgeFromFile:");
-        testAddVerticesFromFile(); // We need vertices to add the edges to.
-
         InputStream is = getClass().getClassLoader()
                 .getResourceAsStream("edge.csv");
         graph.addEdgeFromFile(is);
 
         Set<DefaultWeightedEdge> set = graph.graph.edgeSet();
+        System.out.println("testAddEdgeFromFile:");
         for (DefaultWeightedEdge edge : set) {
             System.out.println(edge.toString());
         }
@@ -63,5 +61,30 @@ public class DirectionsGraphTest extends TestCase {
 
     public void testStringToEdge() throws Exception {
         // Tested during the usage of addEdgeFromFile
+    }
+
+    public void testFindNodeByLatLng() throws Exception {
+        testAddVerticesFromFile();
+
+        LatLngNode close = graph.findNodeByLatLng(
+                new LatLng(45.0871, -64.364448));
+        System.out.println(close.toString());
+        assertEquals(true, graph.graph.containsVertex(close));
+
+        close = graph.findNodeByLatLng(new LatLng(46, 93));
+        System.out.println(close.toString());
+        assertEquals(true, graph.graph.containsVertex(close));
+    }
+
+    public void testFindRoute() throws Exception {
+        testAddVerticesFromFile();
+        testAddEdgeFromFile();
+
+        System.out.println("SHORTEST ROUTE: \n");
+
+        PolylineOptions options = graph.findRoute(
+                new LatLng(45.08702,-64.366744), "CRO");
+
+        System.out.println(options.getPoints().toString());
     }
 }

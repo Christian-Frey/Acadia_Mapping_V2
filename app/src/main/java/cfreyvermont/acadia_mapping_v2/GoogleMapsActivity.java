@@ -22,7 +22,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 
@@ -41,8 +40,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private BuildingInfoDB db;
     private final Map<String, Polygon> polygonList = new ArrayMap<>();
     private Map <String, PolygonOptions> polygonOptionsMap;
-    private DirectionsGraph g;
     private boolean IS_WINDOW_OPEN = false;
+    private DirectionsGraph g;
 
     /* Things to do
      * Add walking directions based on current location
@@ -61,10 +60,11 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         addInfoToDatabase();
 
         /* Adding the graph which represents directions. */
-        g = new DirectionsGraph();
+
         InputStream isVertex = getResources().openRawResource(R.raw.vertex);
         InputStream isEdge = getResources().openRawResource(R.raw.edge);
 
+        g = new DirectionsGraph();
         g.addVerticesFromFile(isVertex);
         g.addEdgeFromFile(isEdge);
 
@@ -227,14 +227,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         });
 
         //For Debugging only.
-        drawWalkingRoutes();
+        //drawAllWalkingRoutes();
     }
 
     /**
      * Drawing all possible routes the user could take when asking for
      * directions. For debugging use only.
      */
-    private void drawWalkingRoutes() {
+    private void drawAllWalkingRoutes() {
         Set<DefaultWeightedEdge> set = g.graph.edgeSet();
         for (DefaultWeightedEdge edge : set) {
             LatLngNode source = g.graph.getEdgeSource(edge);
